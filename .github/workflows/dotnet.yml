@@ -1,0 +1,74 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+    # containerization steps
+    - name: Build Docker image
+      run: |
+        docker build -t 2026-web07:latest .
+    - name: Save Docker image to artifact
+      run: |
+        docker save 2026-web07:latest -o image.tar
+    - uses: actions/upload-artifact@v4
+      with:
+        name: docker-image
+        path: image.tar
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        name: docker-image
+
+    # deploy to remote server over SSH
+    # the workflow uses a **private key** stored in the SSH_PRIVATE_KEY secret
+    # (PEM format). the **public key** corresponding to that private key must
+    # already be present in the remote host's ~/.ssh/authorized_keys file.
+    # we don't copy the private key to the server – the runner uses it locally
+    # to authenticate when calling `ssh` / `scp`.
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+    - name: Copy image to target host
+      run: |
+        scp -o StrictHostKeyChecking=no image.tar \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/tmp/image.tar
+    - name: Load image and run container on host
+      run: |
+        ssh -o StrictHostKeyChecking=no \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<'EOF'
+          docker load < /tmp/image.tar
+          docker rm -f 2026-web07 || true
+          docker run -d --name 2026-web07 -p 8507:5010 2026-web07:latest
+        EOF
