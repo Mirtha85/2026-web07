@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Página de Inicio";
+}
+
+<section class="hero-section py-5">
+    <div class="container position-relative">
+        <!-- Pink circle decoration in background -->
+        <div class="bg-decoration" style="position: absolute; right: 0; top: -50px; width: 400px; height: 400px; background: #FFEDEA; border-radius: 50%; z-index: -1;"></div>
+        
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-3 fw-bold mb-4">
+                        <span style="color: var(--primary)">Bienvenido</span> al<br>
+                        mundo de<br>
+                        Comida <span class="fw-normal">Sabrosa</span> & <span class="fw-normal">Fresca.</span>
+                    </h1>
+                    <p class="text-muted mb-5 lead" style="max-width: 450px;">
+                        Descubre lo mejor de la brasa cruceña y nuestras tradiciones culinarias, directo desde el corazón de Santa Cruz.
+                    </p>
+                    
+                    <div class="search-box p-1 border rounded-pill bg-white shadow-sm d-flex align-items-center" style="max-width: 500px;">
+                        <span class="ms-3 text-muted">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        </span>
+                        <input type="text" class="form-control border-0 bg-transparent ms-2" placeholder="Busca tu plato favorito...">
+                        <button class="btn btn-primary rounded-pill px-5 py-2" style="background: var(--primary); border: none;">Buscar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-img-container position-relative">
+                    <img src="~/images/hero_dish.png" alt="Plato Estelar" class="img-fluid hero-main-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .min-vh-75 { min-height: 75vh; }
+    .hero-main-img {
+        max-width: 100%;
+        filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
+        animation: floatImg 6s ease-in-out infinite;
+    }
+
+    @@keyframes floatImg {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .search-box input:focus {
+        box-shadow: none;
+    }
+</style>
