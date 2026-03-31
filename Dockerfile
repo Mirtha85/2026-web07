@@ -12,7 +12,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # copy csproj and restore as distinct layers
-COPY ["2026-web02.csproj", "./"]
+COPY ["sistema-restaurante.csproj", "./"]
 RUN dotnet restore
 
 # copy the rest of the sources and build
@@ -26,4 +26,4 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "2026-web02.dll"]
+ENTRYPOINT ["dotnet", "sistema-restaurante.dll"]
