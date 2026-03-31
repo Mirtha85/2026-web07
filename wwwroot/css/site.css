@@ -1,0 +1,32 @@
+/* Global Styles */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary) !important;
+    color: white !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+body {
+    background-color: #FAFAFA;
+}

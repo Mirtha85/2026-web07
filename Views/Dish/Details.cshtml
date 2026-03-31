@@ -1,0 +1,60 @@
+@model Dish
+
+<div class="container py-5">
+    <div class="row pt-5 align-items-center">
+        <div class="col-md-6 mb-4 mb-md-0">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Name">
+            </div>
+        </div>
+        <div class="col-md-6 ps-md-5">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Dish" asp-action="List" class="text-decoration-none">Menú</a></li>
+                    <li class="breadcrumb-item active">@Model.Name</li>
+                </ol>
+            </nav>
+            <h1 class="display-4 fw-bold mb-3">@Model.Name</h1>
+            <div class="mb-4">
+                <span class="fs-2 fw-bold text-primary">@Model.Price.ToString("C")</span>
+            </div>
+            <p class="lead text-muted mb-4">@Model.ShortDescription</p>
+            <div class="card bg-light border-0 rounded-4 p-4 mb-5">
+                <h5 class="fw-bold mb-3">Descripción</h5>
+                <p>@Model.LongDescription</p>
+            </div>
+            <div class="d-grid gap-3 d-sm-flex">
+                <a class="btn btn-primary btn-lg rounded-pill px-5" 
+                   asp-controller="ShoppingCart" 
+                   asp-action="AddToShoppingCart" 
+                   asp-route-dishId="@Model.DishId">
+                    Añadir al Carrito
+                </a>
+                <a class="btn btn-outline-dark btn-lg rounded-pill px-5" asp-controller="Dish" asp-action="List">
+                    Volver al Menú
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-primary {
+        color: #D62300 !important;
+    }
+    .btn-primary {
+        background-color: #D62300;
+        border-color: #D62300;
+    }
+    .btn-primary:hover {
+        background-color: #b51e00;
+        border-color: #b51e00;
+    }
+    .breadcrumb-item a {
+        color: #6c757d;
+    }
+    .breadcrumb-item.active {
+        color: #D62300;
+        font-weight: 600;
+    }
+</style>

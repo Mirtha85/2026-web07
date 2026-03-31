@@ -1,0 +1,102 @@
+@{
+    ViewData["Title"] = "Sobre Nosotros";
+}
+
+<div class="about-hero position-relative overflow-hidden mb-5">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center pt-5">
+            <div class="col-lg-6 hero-text-container" style="z-index: 2;">
+                <h6 class="text-primary text-uppercase fw-bold mb-3">Nuestra Historia</h6>
+                <h1 class="display-3 fw-bold mb-4">Brasa & <span class="text-primary">Tradición</span></h1>
+                <p class="lead text-muted mb-4">Desde 1995, llevando el auténtico sabor de la parrilla boliviana a su mesa. Una tradición que se comparte en familia.</p>
+                <div class="d-flex gap-3">
+                    <a asp-controller="Dish" asp-action="List" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-sm transition-all hover-up">Ver Menú</a>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-5">
+                <div class="position-relative">
+                    <div class="bg-primary rounded-circle position-absolute" style="width: 400px; height: 400px; opacity: 0.1; top: -50px; right: -50px; z-index: 0;"></div>
+                    <img src="~/images/hero_dish.png" alt="Plato especial" class="img-fluid rounded-4 shadow-lg position-relative" style="z-index: 1;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row gy-5 align-items-center">
+        <div class="col-md-6 order-md-2">
+            <h2 class="display-5 fw-bold mb-4">El Secreto de Nuestra <span class="text-primary">Sazón</span></h2>
+            <p class="mb-4">En <strong>Brasa & Tradición</strong>, no solo cocinamos, honramos nuestras raíces. Seleccionamos cuidadosamente los mejores cortes de carne y productos locales para garantizar una experiencia gastronómica única.</p>
+            <div class="row g-4">
+                <div class="col-6 text-center shadow-sm p-4 rounded-4 bg-white border-top border-primary border-4 transition-all hover-up">
+                    <h3 class="fw-bold text-primary mb-1">25+</h3>
+                    <p class="text-muted small mb-0">Años de experiencia</p>
+                </div>
+                <div class="col-6 text-center shadow-sm p-4 rounded-4 bg-white border-top border-primary border-4 transition-all hover-up">
+                    <h3 class="fw-bold text-primary mb-1">10k+</h3>
+                    <p class="text-muted small mb-0">Clientes satisfechos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 order-md-1">
+            <img src="~/images/restaurant_interior.png" alt="Nuestro Local" class="img-fluid rounded-5 shadow-sm transform-hover">
+        </div>
+    </div>
+</div>
+
+<div class="bg-light py-5">
+    <div class="container text-center py-5">
+        <h2 class="display-6 fw-bold mb-5">Nuestros <span class="text-primary">Valores</span></h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4 rounded-4 text-center">
+                    <div class="icon-box mb-3 mx-auto">
+                        <i class="bi bi-heart-fill text-primary display-4"></i>
+                    </div>
+                    <h4 class="fw-bold">Pasión</h4>
+                    <p class="text-muted">Amamos lo que hacemos y se nota en cada plato.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4 rounded-4 text-center">
+                    <div class="icon-box mb-3 mx-auto">
+                        <i class="bi bi-star-fill text-primary display-4"></i>
+                    </div>
+                    <h4 class="fw-bold">Calidad</h4>
+                    <p class="text-muted">Solo los mejores ingredientes para los mejores clientes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4 rounded-4 text-center">
+                    <div class="icon-box mb-3 mx-auto">
+                        <i class="bi bi-people-fill text-primary display-4"></i>
+                    </div>
+                    <h4 class="fw-bold">Familia</h4>
+                    <p class="text-muted">Un ambiente acogedor para que te sientas como en casa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .about-hero {
+        background: linear-gradient(135deg, #fff 0%, #fff5f2 100%);
+        padding: 80px 0;
+    }
+    .text-primary { color: var(--primary) !important; }
+    .btn-primary { background-color: var(--primary); border-color: var(--primary); }
+    .btn-primary:hover { background-color: #b01d00; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(214,35,0,0.2) !important; }
+    .hover-up:hover { transform: translateY(-5px); transition: transform 0.3s ease; }
+    .transform-hover:hover { transform: scale(1.02); transition: transform 0.4s ease; }
+    .icon-box {
+        width: 80px;
+        height: 80px;
+        background: var(--accent);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>

@@ -1,0 +1,38 @@
+@model IEnumerable<Category>
+
+<div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Categorías
+    </a>
+    <ul class="dropdown-menu border-0 shadow-lg rounded-4 p-2 mt-2" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item rounded-3" asp-controller="Dish" asp-action="List" asp-route-category="">Todos los platos</a></li>
+        <li><hr class="dropdown-divider"></li>
+        @foreach (var category in Model)
+        {
+            <li>
+                <a class="dropdown-item rounded-3" asp-controller="Dish" asp-action="List" 
+                   asp-route-category="@category.CategoryName">@category.CategoryName</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<style>
+    .dropdown-menu {
+        min-width: 200px;
+        animation: fadeIn 0.3s ease;
+    }
+    .dropdown-item {
+        padding: 0.75rem 1rem;
+        transition: all 0.2s;
+    }
+    .dropdown-item:hover {
+        background-color: var(--accent);
+        color: var(--primary) !important;
+        transform: translateX(5px);
+    }
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

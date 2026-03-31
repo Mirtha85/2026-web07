@@ -1,0 +1,97 @@
+@model DishListViewModel
+
+<div class="container py-5">
+    <div class="row pt-4 mb-5 text-center">
+        <div class="col-12">
+            <h1 class="display-4 fw-bold mb-3">Descubre Nuestro <span class="text-primary">Menú</span></h1>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">
+                Desde nuestras carnes a la brasa hasta platos tradicionales hechos con pasión. 
+                Selecciona una categoría para filtrar tus favoritos.
+            </p>
+        </div>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="row mb-5">
+        <div class="col-12 d-flex justify-content-center flex-wrap gap-2">
+            <a asp-controller="Dish" asp-action="List" asp-route-category="" 
+               class="btn @(string.IsNullOrEmpty(Model.CurrentCategory) || Model.CurrentCategory == "Todos los Platos" ? "btn-primary shadow-sm" : "btn-outline-dark") rounded-pill px-4">
+               Todos
+            </a>
+            @foreach (var category in Model.Categories)
+            {
+                <a asp-controller="Dish" asp-action="List" asp-route-category="@category.CategoryName" 
+                   class="btn @(Model.CurrentCategory == category.CategoryName ? "btn-primary shadow-sm" : "btn-outline-dark") rounded-pill px-4">
+                   @category.CategoryName
+                </a>
+            }
+        </div>
+    </div>
+
+    @if (!Model.Dishes.Any())
+    {
+        <div class="row py-5 text-center">
+            <div class="col-12">
+                <i class="bi bi-search h1 text-muted"></i>
+                <h3 class="mt-3">No hay platos en esta categoría</h3>
+                <p>Intenta con otra opción del menú.</p>
+            </div>
+        </div>
+    }
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 animate__animated animate__fadeIn">
+        @foreach (var dish in Model.Dishes)
+        {
+            <div class="col">
+                <div class="card h-100 dish-card border-0 shadow-sm overflow-hidden rounded-4">
+                    <div class="dish-image-container position-relative">
+                        <img src="@dish.ImageThumbnailUrl" class="card-img-top" alt="@dish.Name" style="height: 250px; object-fit: cover;">
+                        <div class="price-tag position-absolute top-0 end-0 m-3 bg-white px-3 py-1 rounded-pill shadow-sm">
+                            <span class="fw-bold text-primary">@dish.Price.ToString("C")</span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-2">@dish.Name</h5>
+                        <p class="card-text text-muted mb-4">@dish.ShortDescription</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-controller="Dish" asp-action="Details" asp-route-id="@dish.DishId" class="btn btn-outline-dark rounded-pill px-4">Ver más</a>
+                            <a class="btn btn-primary rounded-pill px-4"
+                               asp-controller="ShoppingCart" 
+                               asp-action="AddToShoppingCart" 
+                               asp-route-dishId="@dish.DishId">
+                                Añadir al Carrito
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .dish-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dish-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+    }
+    .dish-image-container img {
+        transition: transform 0.5s ease;
+    }
+    .dish-card:hover .dish-image-container img {
+        transform: scale(1.05);
+    }
+    .text-primary {
+        color: #D62300 !important;
+    }
+    .btn-primary {
+        background-color: #D62300;
+        border-color: #D62300;
+    }
+    .btn-primary:hover {
+        background-color: #b51e00;
+        border-color: #b51e00;
+    }
+</style>
